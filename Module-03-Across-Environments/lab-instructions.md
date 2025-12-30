@@ -94,4 +94,4 @@ For each task, identify the best interface:
 
 ## Next Module
 
-[Module 4: Management & Customization](../../Module-04-Management-Customization/)
+[Module 4: Management & Customization](../Module-04-Management-Customization/lab-instructions.md)

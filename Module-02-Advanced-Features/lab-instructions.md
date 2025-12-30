@@ -17,38 +17,50 @@ In this lab, you will:
 
 - Completion of Module 1 and Lab 1
 - GitHub Copilot and Copilot Chat enabled
-- Code editor with Copilot extensions installed
+- Visual Studio or VS Code with C# support
+- .NET SDK 6.0 or higher installed
 - Sample project files (provided in labs/starter-code/)
 
 ## Lab Structure
 
 ### Exercise 1: Advanced Chat Commands (5 minutes)
 
-**Objective:** Master Copilot Chat slash commands
+**Objective:** Master Copilot Chat slash commands with C# examples
 
 #### Task 1: Using /explain
-1. Open `starter-code/complex-algorithm.js`
-2. Select the `findOptimalPath` function
-3. In Copilot Chat, type: `/explain this function`
+1. Open `starter-code/ComplexAlgorithm.cs`
+2. Select the `FindOptimalPath` method
+3. In Copilot Chat, type: `/explain this method`
 4. Review the explanation
 
+**Example File:**
+```csharp
+public class PathFinder
+{
+  public List<int> FindOptimalPath(int[,] grid, int start, int end)
+  {
+    // Complex pathfinding logic here
+  }
+}
+```
+
 #### Task 2: Using /fix
-1. Open `starter-code/buggy-code.js`
-2. Try to run the code (it has bugs)
-3. Select the problematic function
+1. Open `starter-code/BuggyCode.cs`
+2. Try to build the code (it has bugs)
+3. Select the problematic method
 4. Type: `/fix this code`
-5. Apply the suggested fixes
+5. Apply the suggested fixes and verify with `dotnet build`
 
 #### Task 3: Using /tests
-1. Open `starter-code/user-service.js`
-2. Select the `createUser` function
-3. Type: `/tests for this function including edge cases`
-4. Save the generated tests to a new file
+1. Open `starter-code/UserService.cs`
+2. Select the `CreateUser` method
+3. Type: `/tests for this method including edge cases using xUnit`
+4. Save the generated tests to `UserServiceTests.cs`
 
 #### Task 4: Using /doc
-1. Open `starter-code/api-handler.js`
-2. Select a function without documentation
-3. Type: `/doc with JSDoc format`
+1. Open `starter-code/ApiHandler.cs`
+2. Select a method without XML documentation
+3. Type: `/doc with C# XML documentation format`
 4. Add the generated documentation
 
 **Deliverable:** Document your findings in `exercise1-chat-commands.md`
@@ -59,47 +71,88 @@ In this lab, you will:
 
 **Objective:** Improve code quality using Copilot
 
-#### Part A: Simplify Complex Functions
+#### Part A: Simplify Complex Methods
 
-1. Open `starter-code/legacy-code.js`
-2. Find the `processUserData` function (it's overly complex)
+1. Open `starter-code/LegacyCode.cs`
+2. Find the `ProcessUserData` method (it's overly complex)
 3. Prompt Copilot Chat:
 ```
-Refactor this function to:
-- Use modern JavaScript (ES6+)
-- Reduce nesting
-- Improve readability
-- Add proper error handling
-- Use async/await instead of callbacks
+Refactor this method to:
+- Use modern C# (nullable reference types, records)
+- Reduce nesting depth
+- Improve readability with LINQ
+- Add proper exception handling
+- Use async/await instead of synchronous calls
 ```
-4. Compare the original with the refactored version
 
-#### Part B: Extract Functions
+**Before Example:**
+```csharp
+public void ProcessUserData(List<User> users)
+{
+  foreach (var user in users)
+  {
+    if (user != null)
+    {
+      if (user.IsActive)
+      {
+        if (user.Email.Contains("@"))
+        {
+          // Process...
+        }
+      }
+    }
+  }
+}
+```
 
-1. Look at the `handleCheckout` function
-2. It does too many things (validates, calculates, saves, sends email)
+4. Compare original with refactored version
+5. Verify with: `dotnet build` and run unit tests
+
+#### Part B: Extract Methods (Single Responsibility)
+
+1. Look at the `HandleCheckout` method
+2. It violates Single Responsibility Principle
 3. Prompt Copilot:
 ```
-This function violates Single Responsibility Principle
-Extract each responsibility into separate functions:
-- validateCheckout
-- calculateTotal
-- saveOrder
-- sendConfirmationEmail
-Keep the main function as an orchestrator
+This method does multiple things (validates, calculates, saves, sends email)
+Extract each responsibility into separate methods:
+- ValidateCheckout()
+- CalculateTotal()
+- SaveOrder()
+- SendConfirmationEmail()
+Keep the main method as an orchestrator using async/await
+```
+
+**After Example:**
+```csharp
+public async Task ProcessCheckoutAsync(Order order)
+{
+  ValidateCheckout(order);
+  var total = CalculateTotalAsync(order);
+  await SaveOrderAsync(order);
+  await SendConfirmationEmailAsync(order);
+}
 ```
 
 #### Part C: Apply Design Patterns
 
-1. Open `starter-code/notification-system.js`
+1. Open `starter-code/NotificationSystem.cs`
 2. Prompt Copilot:
 ```
-Refactor this notification system to use the Strategy pattern
-Support email, SMS, and push notifications
-Make it easy to add new notification types
+Refactor this notification system using the Strategy pattern:
+- Support Email, SMS, and Push notifications
+- Use interface INotificationStrategy
+- Make it easy to add new notification types
+- Use dependency injection with IServiceProvider
 ```
 
-**Deliverable:** Save refactored code to `exercise2-refactored-code.js`
+**Deliverable:** Save refactored code to `exercise2-refactored-code.cs`
+
+**Verification Steps:**
+```bash
+dotnet build
+dotnet test
+```
 
 ---
 
@@ -109,47 +162,86 @@ Make it easy to add new notification types
 
 #### Task 1: Algorithm Optimization
 
-1. Open `starter-code/slow-search.js`
-2. The current implementation uses nested loops (O(n²))
+1. Open `starter-code/SlowSearch.cs`
+2. Current implementation uses nested loops (O(n²))
 3. Prompt Copilot:
 ```
-Optimize this search function:
-- Current: O(n²) time complexity
+Optimize this search method:
+- Current: O(n²) time complexity using nested loops
 - Target: O(n) or O(n log n)
-- Use appropriate data structures
-- Handle edge cases
+- Use Dictionary or HashSet for lookups
+- Handle null/empty edge cases
+```
+
+**Before:**
+```csharp
+public bool UserExists(List<User> users, string email)
+{
+  foreach (var user in users)
+  {
+    if (user.Email == email) return true;
+  }
+  return false;
+}
+```
+
+**After:**
+```csharp
+public bool UserExists(HashSet<string> userEmails, string email)
+{
+  return userEmails.Contains(email); // O(1) lookup
+}
 ```
 
 #### Task 2: Memory Optimization
 
-1. Open `starter-code/file-processor.js`
+1. Open `starter-code/FileProcessor.cs`
 2. Current code loads entire file into memory
 3. Prompt Copilot:
 ```
-Refactor to use streams for processing large files:
+Refactor to use StreamReader for processing large files:
 - Read file line by line
-- Process without loading entire file
-- Reduce memory footprint
+- Process without loading entire file into memory
 - Handle files larger than available RAM
+- Add proper using statements
+```
+
+**Verification:**
+```bash
+dotnet build
+dotnet run
 ```
 
 #### Task 3: Database Query Optimization
 
-1. Open `starter-code/database-queries.js`
-2. Contains N+1 query problem
+1. Open `starter-code/DatabaseQueries.cs`
+2. Contains N+1 query problem with Entity Framework
 3. Prompt Copilot:
 ```
-Optimize these database queries:
-- Eliminate N+1 query problem
-- Use JOIN or eager loading
-- Reduce number of database roundtrips
-- Add appropriate indexes (in comments)
+Optimize these LINQ queries:
+- Eliminate N+1 query problem using Include()
+- Use eager loading for related entities
+- Reduce database roundtrips
+- Comment potential indexes needed
+```
+
+**Before:**
+```csharp
+foreach (var user in context.Users)
+{
+  var orders = context.Orders.Where(o => o.UserId == user.Id).ToList();
+}
+```
+
+**After:**
+```csharp
+var users = context.Users.Include(u => u.Orders).ToList();
 ```
 
 **Deliverable:** Create `exercise3-optimizations.md` documenting:
 - Original time/space complexity
 - Optimized complexity
-- Performance improvements
+- Measured performance improvements
 
 ---
 
@@ -159,14 +251,14 @@ Optimize these database queries:
 
 #### Task 1: Architecture Review
 
-1. Open `starter-code/monolithic-service.js`
+1. Open `starter-code/MonolithicService.cs`
 2. Prompt Copilot Chat:
 ```
 Review this code architecture:
 - Identify tight coupling issues
 - Suggest separation of concerns improvements
-- Recommend better structure for testability
-- Propose dependency injection approach
+- Recommend dependency injection patterns
+- Propose interface extraction for testability
 ```
 
 #### Task 2: SOLID Principles Check
@@ -175,23 +267,25 @@ Review this code architecture:
 2. Prompt:
 ```
 Analyze this code against SOLID principles:
-- Single Responsibility Principle violations
+- Single Responsibility violations
 - Open/Closed Principle opportunities
-- Dependency Inversion needs
+- Liskov Substitution issues
+- Interface Segregation needs
+- Dependency Inversion improvements
 Provide specific refactoring suggestions
 ```
 
 #### Task 3: Code Smell Detection
 
-1. Open `starter-code/smelly-code.js`
+1. Open `starter-code/SmellyCode.cs`
 2. Prompt:
 ```
-Identify code smells in this file:
-- Long methods
-- Duplicated code
-- Large classes
-- Feature envy
-Suggest refactoring strategies
+Identify code smells in this C# file:
+- Long methods (should be <20 lines)
+- Duplicated code blocks
+- Large classes (God Objects)
+- Feature envy (excessive dependencies)
+Suggest refactoring strategies with examples
 ```
 
 **Deliverable:** Create `exercise4-design-review.md` with findings and recommendations
@@ -200,51 +294,61 @@ Suggest refactoring strategies
 
 ### Exercise 5: Documentation Generation (5 minutes)
 
-**Objective:** Generate comprehensive documentation
+**Objective:** Generate comprehensive C# XML documentation
 
-#### Task 1: Function Documentation
+#### Task 1: Method Documentation
 
-1. Open `starter-code/undocumented-utils.js`
-2. For each function, prompt:
+1. Open `starter-code/UndocumentedUtils.cs`
+2. For each method, prompt:
 ```
-/doc generate comprehensive JSDoc including:
-- Description
-- Parameters with types
-- Return value
-- Examples
-- Edge cases
-- Exceptions thrown
+/doc generate comprehensive C# XML documentation including:
+- <summary> description
+- <param> for each parameter with type and description
+- <returns> with return type
+- <example> with code example
+- <exception> for thrown exceptions
+- <remarks> for important notes
+```
+
+**Example:**
+```csharp
+/// <summary>
+/// Validates user email format.
+/// </summary>
+/// <param name="email">The email address to validate.</param>
+/// <returns>True if email is valid; otherwise, false.</returns>
+/// <exception cref="ArgumentNullException">Thrown when email is null.</exception>
+public bool ValidateEmail(string email) { }
 ```
 
 #### Task 2: Class Documentation
 
-1. Open `starter-code/user-manager.js`
+1. Open `starter-code/UserManager.cs`
 2. Prompt:
 ```
-Generate complete class documentation:
-- Class description and purpose
-- Constructor parameters
-- Public methods with full JSDoc
-- Usage examples
-- Best practices
+Generate complete class XML documentation:
+- <summary> class purpose
+- <remarks> design notes
+- Document constructor parameters
+- Document public methods with full summaries
+- Include <example> with usage
 ```
 
 #### Task 3: API Documentation
 
-1. Open `starter-code/api-routes.js`
+1. Open `starter-code/ApiController.cs`
 2. Prompt:
 ```
-Generate API documentation for these endpoints:
-- Endpoint path and method
-- Request parameters
-- Request body schema
-- Response format
-- Status codes
+Generate API endpoint documentation:
+- HTTP method and route
+- Request parameters and body
+- Response format with schema
+- Status codes (200, 400, 404, 500)
 - Example requests/responses
-- Error cases
+- Authorization requirements
 ```
 
-**Deliverable:** Create fully documented versions of all files
+**Deliverable:** Create fully documented versions; verify with `dotnet build`
 
 ---
 
@@ -252,110 +356,320 @@ Generate API documentation for these endpoints:
 
 **Objective:** Recognize when Copilot suggestions need verification
 
-#### Task 1: Identify Potential Issues
+#### Task 1: Identify Security Issues
 
 Review these Copilot suggestions and identify problems:
 
-1. **Suggestion 1:**
-```javascript
-// Copilot suggested this for "create user authentication"
-function authenticateUser(username, password) {
-  const query = `SELECT * FROM users WHERE username = '${username}' 
-                 AND password = '${password}'`;
-  return db.query(query);
+1. **Suggestion 1 - SQL Injection:**
+```csharp
+public User AuthenticateUser(string username, string password)
+{
+  string query = $"SELECT * FROM Users WHERE Username = '{username}' 
+           AND Password = '{password}'";
+  return context.Users.FromSqlRaw(query).FirstOrDefault();
 }
 ```
-**Question:** What's wrong? How would you fix it?
+**Question:** What's the SQL injection vulnerability? How do you fix it?
 
-2. **Suggestion 2:**
-```javascript
-// Copilot suggested this for "hash password"
-function hashPassword(password) {
-  return btoa(password); // Base64 encoding
+2. **Suggestion 2 - Weak Password Hashing:**
+```csharp
+public string HashPassword(string password)
+{
+  using (var sha256 = System.Security.Cryptography.SHA256.Create())
+  {
+    var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+    return Convert.ToBase64String(hash);
+  }
 }
 ```
-**Question:** What's the security issue?
+**Question:** Why is this insecure? What should you use instead?
 
-3. **Suggestion 3:**
-```javascript
-// Copilot suggested this for "fetch user data"
-async function fetchUser(id) {
-  const response = await fetch(`/api/users/${id}`);
-  return response.json();
+3. **Suggestion 3 - Missing Error Handling:**
+```csharp
+public async Task<User> FetchUserAsync(int id)
+{
+  var response = await httpClient.GetAsync($"/api/users/{id}");
+  return JsonSerializer.Deserialize<User>(await response.Content.ReadAsStringAsync());
 }
 ```
-**Question:** What error handling is missing?
+**Question:** What error handling is missing? What exceptions could occur?
 
-**Deliverable:** Create `exercise6-limitations.md` documenting issues found
+**Deliverable:** Create `exercise6-limitations.md` documenting issues and fixes:
+- Use parameterized queries (SqlParameter)
+- Use bcrypt or PBKDF2 for hashing
+- Add try-catch, null checks, and status code validation
 
 ---
 
 ## Bonus Challenges
 
-### Challenge 1: Complete Refactoring
+### Challenge 1: Complete Service Refactoring
 
-Take the entire `starter-code/legacy-app.js` and:
-1. Refactor using modern patterns
-2. Add comprehensive error handling
-3. Optimize performance
-4. Add full documentation
-5. Extract reusable components
+1. Take `starter-code/LegacyService.cs`
+2. Refactor completely:
+   - Apply modern C# patterns (records, nullable types)
+   - Add comprehensive error handling
+   - Optimize performance with LINQ
+   - Extract interfaces for testability
+   - Add full XML documentation
+3. Run: `dotnet build && dotnet test`
+4. Document changes in `REFACTORING_NOTES.md`
 
-### Challenge 2: Documentation Site
+### Challenge 2: Documentation Generation
 
-Generate a complete documentation site structure:
+Generate a complete documentation site:
 - README.md
-- API.md
+- API.md (with OpenAPI format)
 - ARCHITECTURE.md
 - CONTRIBUTING.md
 - CHANGELOG.md
 
-Use Copilot to generate content for each based on the code.
+**Verification:**
+```bash
+dotnet build /p:DocumentationFile=bin/Debug/net6.0/App.xml
+```
 
-### Challenge 3: Performance Benchmark
+### Challenge 3: Performance Benchmarking
 
-1. Create performance tests for original vs optimized code
-2. Document actual performance improvements
-3. Use Copilot to generate benchmark code
+1. Create benchmarks using BenchmarkDotNet:
+```bash
+dotnet add package BenchmarkDotNet
+```
+2. Compare original vs optimized methods
+3. Document actual performance improvements with metrics
+
+**Run Benchmarks:**
+```bash
+dotnet run -c Release
+```
 
 ---
 
 ## Lab Completion Checklist
 
-- [ ] Completed Exercise 1: Chat commands
-- [ ] Completed Exercise 2: Refactoring
-- [ ] Completed Exercise 3: Optimization
-- [ ] Completed Exercise 4: Design feedback
-- [ ] Completed Exercise 5: Documentation
-- [ ] Completed Exercise 6: Limitations
+- [ ] Completed Exercise 1: Chat commands with C# examples
+- [ ] Completed Exercise 2: Refactoring and verified with `dotnet build`
+- [ ] Completed Exercise 3: Optimization and measured improvements
+- [ ] Completed Exercise 4: Design feedback documented
+- [ ] Completed Exercise 5: Full XML documentation added
+- [ ] Completed Exercise 6: Security issues identified
+- [ ] All code compiles: `dotnet build` succeeds
+- [ ] All tests pass: `dotnet test` succeeds
 - [ ] Attempted at least one bonus challenge
+
+## Verification Steps for All Exercises
+
+```bash
+# Build the project
+dotnet build
+
+# Run unit tests
+dotnet test
+
+# Check for code analysis warnings
+dotnet build /p:EnableNETAnalyzers=true
+
+# Generate documentation file
+dotnet build /p:DocumentationFile=bin/Debug/net6.0/Lab2.xml
+```
 
 ## Key Takeaways
 
-1. **Slash commands are powerful:** Use /explain, /fix, /tests, /doc for specific tasks
-2. **Refactoring is iterative:** Start with small improvements, build up
-3. **Always verify suggestions:** Especially for security and performance
-4. **Documentation saves time:** Let Copilot handle boilerplate docs
-5. **Know the limitations:** Copilot is a tool, not a replacement for thinking
+1. **Slash commands accelerate tasks:** Use /explain, /fix, /tests, /doc for C# code
+2. **Always verify with dotnet build:** Compilation catches many issues
+3. **Security must be verified manually:** Especially for authentication/database code
+4. **SOLID principles guide refactoring:** Copilot helps implement them
+5. **Documentation is enforced:** C# XML docs improve IntelliSense and code clarity
 
 ## Troubleshooting
 
-**Chat not responding:**
-- Check internet connection
-- Reload VS Code/IDE
-- Verify Copilot subscription is active
+**Build errors:**
+- Verify .NET SDK: `dotnet --version`
+- Check target framework in .csproj file
+- Restore packages: `dotnet restore`
 
-**Poor suggestions:**
-- Add more context in your prompt
-- Reference existing code patterns
-- Be more specific about requirements
+**Poor Copilot suggestions:**
+- Add domain context in prompts
+- Reference similar code patterns in your codebase
+- Be explicit about C# version (6.0, 7.0, etc.)
 
-**Code doesn't work:**
-- Review for security issues
-- Check for missing error handling
-- Verify against your environment
-- Test thoroughly
+**Tests failing:**
+- Review Copilot-generated test assertions
+- Verify mocking setup matches your code
+- Check for side effects in methods being tested
 
 ## Next Module
 
 When ready, proceed to [Module 3: GitHub Copilot Across Environments](../Module-03-Across-Environments/lab-instructions.md)
+## Starter Code Setup
+
+If you don't have the `starter-code/` folder, create it with these files:
+
+### Quick Setup
+
+1. **Create the directory:**
+```bash
+mkdir labs/starter-code
+cd labs/starter-code
+```
+
+2. **Create the starter files below** in your `labs/starter-code/` folder, or request them from your instructor.
+
+### Required Starter Files
+
+**ComplexAlgorithm.cs**
+```csharp
+public class PathFinder
+{
+  public List<int> FindOptimalPath(int[,] grid, int start, int end)
+  {
+    var visited = new HashSet<int>();
+    var queue = new Queue<int>();
+    queue.Enqueue(start);
+    var parent = new Dictionary<int, int>();
+    
+    while (queue.Count > 0)
+    {
+      var current = queue.Dequeue();
+      if (current == end) break;
+      if (visited.Contains(current)) continue;
+      
+      visited.Add(current);
+      for (int i = 0; i < grid.GetLength(0); i++)
+      {
+        if (grid[current, i] == 1 && !visited.Contains(i))
+        {
+          queue.Enqueue(i);
+          parent[i] = current;
+        }
+      }
+    }
+    
+    var path = new List<int>();
+    var node = end;
+    while (parent.ContainsKey(node))
+    {
+      path.Add(node);
+      node = parent[node];
+    }
+    path.Reverse();
+    return path;
+  }
+}
+```
+
+**BuggyCode.cs**
+```csharp
+public class DataProcessor
+{
+  public int CalculateSum(int[] numbers)
+  {
+    int sum = 0;
+    for (int i = 0; i < numbers.Length; i++)
+    {
+      sum += numbers[i]
+    }
+    return sum;
+  }
+  
+  public string FormatUser(string name, string email)
+  {
+    return $"User: {name}, Email: {email}";
+  }
+}
+```
+
+**UserService.cs**
+```csharp
+public class UserService
+{
+  public User CreateUser(string username, string email)
+  {
+    if (string.IsNullOrEmpty(username)) return null;
+    return new User { Username = username, Email = email };
+  }
+}
+
+public class User
+{
+  public string Username { get; set; }
+  public string Email { get; set; }
+}
+```
+
+**ApiHandler.cs**
+```csharp
+public class ApiHandler
+{
+  public async Task<string> FetchDataAsync(string url)
+  {
+    using (var client = new HttpClient())
+    {
+      var response = await client.GetAsync(url);
+      return await response.Content.ReadAsStringAsync();
+    }
+  }
+}
+```
+
+**LegacyCode.cs**
+```csharp
+public class UserProcessor
+{
+  public void ProcessUserData(List<User> users)
+  {
+    foreach (var user in users)
+    {
+      if (user != null)
+      {
+        if (user.IsActive)
+        {
+          if (user.Email.Contains("@"))
+          {
+            Console.WriteLine($"Processing {user.Username}");
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**NotificationSystem.cs**
+```csharp
+public class NotificationService
+{
+  public void SendNotification(string type, string recipient, string message)
+  {
+    if (type == "Email")
+    {
+      // Email logic
+    }
+    else if (type == "SMS")
+    {
+      // SMS logic
+    }
+    else if (type == "Push")
+    {
+      // Push logic
+    }
+  }
+}
+```
+
+**SlowSearch.cs**
+```csharp
+public class UserRepository
+{
+  public bool UserExists(List<User> users, string email)
+  {
+    foreach (var user in users)
+    {
+      if (user.Email == email) return true;
+    }
+    return false;
+  }
+}
+```
+
+3. **After creating files**, proceed with Exercise 1.

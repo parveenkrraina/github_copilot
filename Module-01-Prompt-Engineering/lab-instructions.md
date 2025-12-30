@@ -3,6 +3,20 @@
 **Duration:** 30 minutes  
 **Difficulty:** Beginner
 
+## Prerequisites & Setup
+
+- **VS Code:** Version 1.84+ installed
+- **GitHub Copilot Extension:** Install from VS Code Extensions (ID: `GitHub.copilot`)
+- **GitHub Account:** Active subscription to GitHub Copilot
+- **Node.js:** v16+ installed
+- **Internet Connection:** Required for Copilot API calls
+
+### Verify Setup
+1. Open VS Code → Extensions (Ctrl+Shift+X / Cmd+Shift+X)
+2. Search "GitHub Copilot" and install if missing
+3. Sign in: Click Copilot icon → "Sign in to GitHub"
+4. Verify status: Copilot icon in status bar should show active (no error icons)
+
 ## Lab Objectives
 
 In this lab, you will:
@@ -11,12 +25,6 @@ In this lab, you will:
 3. Practice writing effective prompts
 4. Use role-based and constraint-based prompts
 5. Iteratively refine Copilot outputs
-
-## Prerequisites
-
-- GitHub Copilot enabled in your IDE (VS Code, Visual Studio, or JetBrains)
-- Node.js or any programming environment installed
-- Basic JavaScript or TypeScript knowledge
 
 ## Lab Structure
 
@@ -27,44 +35,53 @@ This lab is divided into 4 exercises:
 **Objective:** Observe how Copilot behaves with different levels of context.
 
 #### Part A: No Comments
-1. Create a new file: `exercise1-no-comments.js`
-2. Start typing: `function calculate`
-3. Observe the suggestions Copilot provides
-4. Accept one suggestion and note what it does
+1. Create new file: `File` → `New File` → Save as `exercise1-no-comments.js`
+2. Type exactly:
+    ```javascript
+    function calculate
+    ```
+3. **Trigger Copilot:** Press `Ctrl+Enter` (Cmd+Enter on Mac) to view all suggestions
+4. **Accept suggestion:** Press `Tab` or `Enter` to accept the first suggestion
+5. **Document:** Note the function name and parameters Copilot generated
 
 #### Part B: Minimal Comments
-1. Create a new file: `exercise1-minimal-comments.js`
-2. Add a minimal comment:
-```javascript
-// calculate shipping
-function calculate
-```
-3. Observe the suggestions
-4. Compare with Part A - Are they more specific?
+1. Create: `File` → `New File` → Save as `exercise1-minimal-comments.js`
+2. Type exactly:
+    ```javascript
+    // calculate shipping
+    function calculate
+    ```
+3. Press `Ctrl+Enter` to view suggestions
+4. **Compare:** Is the generated code more specific than Part A?
 
 #### Part C: Well-Structured Comments
-1. Create a new file: `exercise1-structured-comments.js`
-2. Add a well-structured comment using the four-pillar approach:
-```javascript
-// Intent: Calculate shipping cost for an e-commerce order
-// Context: Support multiple shipping zones (domestic, international)
-// Constraints:
-// - Base cost: $5 domestic, $15 international
-// - Add $1.50 per pound of weight
-// - Free shipping for orders over $100
-// Examples:
-// calculateShipping('domestic', 3, 50) -> 9.5
-// calculateShipping('international', 2, 120) -> 0 (free shipping)
-function calculateShipping
-```
-3. Let Copilot generate the function
-4. Test the generated function
+1. Create: `File` → `New File` → Save as `exercise1-structured-comments.js`
+2. Copy and paste the full comment block:
+    ```javascript
+    // Intent: Calculate shipping cost for an e-commerce order
+    // Context: Support multiple shipping zones (domestic, international)
+    // Constraints:
+    // - Base cost: $5 domestic, $15 international
+    // - Add $1.50 per pound of weight
+    // - Free shipping for orders over $100
+    // Examples:
+    // calculateShipping('domestic', 3, 50) -> 9.5
+    // calculateShipping('international', 2, 120) -> 0 (free shipping)
+    function calculateShipping
+    ```
+3. Press `Ctrl+Enter` → select suggestion → `Tab` to accept
+4. **Test the function:** Add these test cases below:
+    ```javascript
+    console.log(calculateShipping('domestic', 3, 50));
+    console.log(calculateShipping('international', 2, 120));
+    ```
+5. Run: `node exercise1-structured-comments.js`
 
 #### Deliverable:
-Create a file `exercise1-observations.md` documenting:
-- What suggestions you received in each scenario
-- How specificity improved with better comments
-- Which approach produced the best code
+Create `exercise1-observations.md` with:
+- Suggestions received in each part
+- Quality comparison (specificity, completeness)
+- Best performing approach
 
 ---
 
@@ -72,28 +89,27 @@ Create a file `exercise1-observations.md` documenting:
 
 **Objective:** Practice identifying and improving prompts.
 
-#### Part A: Poor Prompts
-Try to get useful code from these poor prompts:
+#### Part A: Demonstrate Poor Prompts
+1. Create: `exercise2-poor.js`
+2. Try each vague prompt separately, note results:
+    ```javascript
+    // get data
+    function fetchData
+    ```
+    ```javascript
+    // validate
+    function validate
+    ```
+    ```javascript
+    // save to database
+    function save
+    ```
 
-1. **Vague Prompt:**
-```javascript
-// get data
-```
+#### Part B: Rewrite with Four-Pillar Structure
+1. Create: `exercise2-improved-prompts.js`
+2. For each poor prompt, use this structure:
 
-2. **Missing Context:**
-```javascript
-// validate
-```
-
-3. **No Constraints:**
-```javascript
-// save to database
-```
-
-#### Part B: Improve the Prompts
-Rewrite each prompt using the four-pillar structure:
-
-1. **Improved Prompt 1:**
+**Improved Prompt 1:**
 ```javascript
 // Intent: Fetch user data from REST API
 // Context: Node.js application using axios library
@@ -105,36 +121,37 @@ Rewrite each prompt using the four-pillar structure:
 // Examples:
 // fetchUserData(123, 'token') -> {id: 123, name: 'John', email: '...'}
 // fetchUserData(999, 'token') -> null (user not found)
+function fetchUserData
 ```
 
-2. **Your turn:** Improve the "validate" prompt
-3. **Your turn:** Improve the "save to database" prompt
+3. **Your task:** Create improved versions for "validate" and "save" prompts
+4. Accept all generated code and save
 
 #### Deliverable:
-Create a file `exercise2-improved-prompts.js` with your improved prompts and generated code.
+`exercise2-improved-prompts.js` with three improved prompts and generated functions
 
 ---
 
 ### Exercise 3: Role-Based Prompts (5 minutes)
 
-**Objective:** Use role-based prompting to influence code generation.
+**Objective:** Use role-based prompting to influence code style and priorities.
 
-#### Tasks:
-Create three versions of a password validation function using different roles:
+#### Steps:
+1. Create: `exercise3-role-based.js`
+2. Add all three role-based prompts sequentially:
 
-1. **Security Engineer Role:**
+**Prompt 1 - Security Engineer:**
 ```javascript
 // As a security engineer, create a password validation function
 // Requirements:
 // - Minimum 12 characters
 // - Must include uppercase, lowercase, numbers, and special characters
-// - Check against common password list
+// - Check against common password list (simple implementation)
 // - No sequential characters (abc, 123)
-// - No repeated characters (aaa, 111)
 function validatePasswordSecure
 ```
 
-2. **UX Designer Role:**
+**Prompt 2 - UX Designer:**
 ```javascript
 // As a UX designer, create a password validation function
 // Requirements:
@@ -145,7 +162,7 @@ function validatePasswordSecure
 function validatePasswordUX
 ```
 
-3. **Performance Engineer Role:**
+**Prompt 3 - Performance Engineer:**
 ```javascript
 // As a performance engineer, create a password validation function
 // Requirements:
@@ -156,127 +173,121 @@ function validatePasswordUX
 function validatePasswordPerformance
 ```
 
+3. Accept all generated functions
+4. **Test:** Add test calls at the bottom to verify all three work
+
 #### Deliverable:
-Create a file `exercise3-role-based.js` with all three functions.
+`exercise3-role-based.js` with all three functions
 
 ---
 
 ### Exercise 4: Iterative Refinement (5 minutes)
 
-**Objective:** Learn to refine Copilot output through iteration.
+**Objective:** Refine prompts progressively to improve output quality.
 
-#### Scenario:
-You need a function to filter and sort products.
+**Scenario:** Filter and sort products
 
-#### Iteration 1 (Basic):
-```javascript
-// Filter products by category
-function filterProducts
-```
+1. Create: `exercise4-iterations.js`
+2. **Iteration 1** - Basic prompt:
+    ```javascript
+    // Filter products by category
+    function filterProducts
+    ```
+    Accept suggestion → Comment as "// Iteration 1"
 
-#### Iteration 2 (Add constraints):
-```javascript
-// Filter products by category
-// Sort by price (low to high)
-// Only show in-stock items
-function filterProducts
-```
+3. **Iteration 2** - Add constraints:
+    ```javascript
+    // Filter products by category
+    // Sort by price (low to high)
+    // Only show in-stock items
+    function filterProducts
+    ```
+    Accept → Comment as "// Iteration 2"
 
-#### Iteration 3 (Add examples):
-```javascript
-// Filter products by category and price range
-// Sort by price (ascending) or name (alphabetical)
-// Only show in-stock items with minimum rating
-// Examples:
-// filterProducts(products, 'electronics', 0, 500, 'price', 4.0)
-// filterProducts(products, 'books', 0, 50, 'name', 3.5)
-function filterProducts
-```
+4. **Iteration 3** - Add examples:
+    ```javascript
+    // Filter products by category and price range
+    // Sort by price (ascending) or name (alphabetical)
+    // Only show in-stock items with minimum rating
+    // Examples:
+    // filterProducts(products, 'electronics', 0, 500, 'price', 4.0)
+    // filterProducts(products, 'books', 0, 50, 'name', 3.5)
+    function filterProducts
+    ```
+    Accept → Comment as "// Iteration 3"
 
-#### Iteration 4 (Add context):
-```javascript
-// E-commerce product filtering for search results page
-// Filter products by category and price range
-// Sort by price (ascending) or name (alphabetical)  
-// Only show in-stock items with minimum rating
-// Handle empty results gracefully
-// Expected input: Array of product objects with {id, name, category, price, inStock, rating}
-// Expected output: Filtered and sorted array
-// Examples:
-// filterProducts(products, 'electronics', 0, 500, 'price', 4.0) -> [{...}, {...}]
-// filterProducts(products, 'books', 0, 50, 'name', 3.5) -> []
-function filterProducts
-```
-
-#### Task:
-1. Try each iteration level
-2. Compare the code quality at each stage
-3. Identify which iteration produced the best result
+5. **Iteration 4** - Full context:
+    ```javascript
+    // E-commerce product filtering for search results page
+    // Filter products by category and price range
+    // Sort by price (ascending) or name (alphabetical)  
+    // Only show in-stock items with minimum rating
+    // Handle empty results gracefully
+    // Expected input: Array of {id, name, category, price, inStock, rating}
+    // Expected output: Filtered and sorted array
+    // Examples:
+    // filterProducts(products, 'electronics', 0, 500, 'price', 4.0) -> [{...}]
+    // filterProducts(products, 'books', 0, 50, 'name', 3.5) -> []
+    function filterProducts
+    ```
+    Accept → Comment as "// Iteration 4"
 
 #### Deliverable:
-Create a file `exercise4-iterations.js` showing all iterations.
+`exercise4-iterations.js` showing all four iterations with quality progression notes
 
 ---
 
 ## Bonus Challenge
 
-Create a prompt for a complex feature using Figma design description:
+**Objective:** Apply all techniques to a real component.
 
-**Figma Design:**
-A dashboard card component showing:
-- Header with title and icon
-- Main content area with metric value and trend indicator (up/down arrow)
-- Footer with timestamp and "View Details" link
-- Responsive design with different layouts for mobile/desktop
-- Hover effect on the card
-- Colors: Primary blue (#007AFF), Success green (#34C759), Danger red (#FF3B30)
+Create a prompt for a React dashboard card component:
 
-**Your Task:**
-Write a comprehensive prompt that includes:
-- Intent
-- Context (React component, TypeScript)
-- Constraints (props, styling approach)
-- Examples (sample props)
+```javascript
+// Intent: Create a reusable dashboard metric card component
+// Context: React with TypeScript, Material-UI styling
+// Constraints:
+// - Display metric title, value, trend indicator (up/down)
+// - Show timestamp in footer with "View Details" link
+// - Support mobile/desktop responsive layouts
+// - Hover effect with shadow enhancement
+// - Color props: primary blue, success green, danger red
+// Examples:
+// <MetricCard title="Revenue" value="$12,450" trend="up" timestamp="2 hours ago" />
+// <MetricCard title="Users" value="1,245" trend="down" timestamp="1 hour ago" />
+function MetricCard
+```
 
-Then let Copilot generate the component.
+#### Deliverable:
+`bonus-metric-card.tsx` with generated component
 
 ---
 
-## Lab Completion Checklist
+## Verification Checklist (VS Code 1.84+)
 
-- [ ] Completed Exercise 1: Context comparison
-- [ ] Completed Exercise 2: Improved prompts
-- [ ] Completed Exercise 3: Role-based prompts
-- [ ] Completed Exercise 4: Iterative refinement
-- [ ] Created observation notes
-- [ ] Attempted bonus challenge
-
-## Key Takeaways
-
-After completing this lab, you should understand:
-1. **Context matters:** More context = better suggestions
-2. **Structure helps:** Four-pillar approach produces consistent results
-3. **Roles influence output:** Different perspectives yield different code
-4. **Iteration improves quality:** Refining prompts leads to better code
-5. **Examples guide behavior:** Showing expected I/O helps Copilot understand
-
-## Next Module
-
-Proceed to [Module 2: Advanced GitHub Copilot Features](../Module-02-Advanced-Features/lab-instructions.md) when ready.
+- [ ] GitHub Copilot extension installed and active
+- [ ] Signed in to GitHub account
+- [ ] `Ctrl+Enter` opens suggestion panel
+- [ ] `Tab` accepts suggestions without autocomplete interference
+- [ ] All 4 exercises completed
+- [ ] Generated code runs without errors
+- [ ] Observation notes document quality progression
 
 ## Troubleshooting
 
-**Copilot not suggesting anything:**
-- Make sure Copilot is enabled (check status bar)
-- Try pressing `Ctrl+Enter` (or `Cmd+Enter` on Mac) to see all suggestions
-- Ensure you have an active internet connection
+| Issue | Solution |
+|-------|----------|
+| Copilot icon shows error | Sign out/in: Click Copilot → "Sign out" → "Sign in to GitHub" |
+| No suggestions appear | Press `Ctrl+Enter` explicitly; check internet connection |
+| Suggestions are generic | Add more context, constraints, and examples |
+| Want alternative suggestions | Press `Alt+]` (next) or `Alt+[` (previous) |
+| Extension won't load | Reinstall: Extensions → GitHub Copilot → Uninstall → Reload → Reinstall |
 
-**Suggestions don't match expectations:**
-- Add more context and constraints
-- Provide examples
-- Be more specific in your intent
+## Key Takeaways
 
-**Want to see alternative suggestions:**
-- Press `Alt+]` for next suggestion
-- Press `Alt+[` for previous suggestion
-- Press `Ctrl+Enter` to see all suggestions in a panel
+1. **Context matters:** Well-commented code → better suggestions
+2. **Structure helps:** Intent + Context + Constraints + Examples = consistent results
+3. **Roles influence output:** Different perspectives = different code styles
+4. **Iteration improves quality:** Refining prompts incrementally produces better code
+5. **Examples guide behavior:** Specific I/O examples improve accuracy
+
