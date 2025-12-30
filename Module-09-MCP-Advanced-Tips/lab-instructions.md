@@ -483,7 +483,6 @@ Answer these in a document `reflection.md`:
 
 ### Recommended Resources:
 - GitHub Copilot Official Docs: https://docs.github.com/en/copilot
-- Community Slack/Discord for pattern sharing
 - Monthly Copilot feature updates
 - Advanced workshops on agents and MCP
 - Your team's growing library of working prompts
