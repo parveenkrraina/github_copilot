@@ -358,4 +358,4 @@ Use Copilot to generate content for each based on the code.
 
 ## Next Module
 
-When ready, proceed to [Module 3: GitHub Copilot Across Environments](../../Module-03-Across-Environments/)
+When ready, proceed to [Module 3: GitHub Copilot Across Environments](../Module-03-Across-Environments/lab-instructions.md)

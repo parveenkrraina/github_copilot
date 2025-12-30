@@ -262,7 +262,7 @@ After completing this lab, you should understand:
 
 ## Next Module
 
-Proceed to [Module 2: Advanced GitHub Copilot Features](../../Module-02-Advanced-Features/) when ready.
+Proceed to [Module 2: Advanced GitHub Copilot Features](../Module-02-Advanced-Features/lab-instructions.md) when ready.
 
 ## Troubleshooting
 
