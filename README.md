@@ -77,10 +77,9 @@ This comprehensive training course covers GitHub Copilot from basics to advanced
 2. Navigate to Module 1 to begin
 3. Complete labs in sequence for best learning experience
 4. Each module contains:
-   - README with learning objectives
-   - Examples directory with code samples
-   - Labs directory with hands-on exercises
-   - Reference materials for further reading
+   - Lab instructions with hands-on exercises and learning objectives
+   - Code examples and starter code within the lab instructions
+   - Reference materials and best practices documented inline
 
 ## Prerequisites
 
@@ -89,18 +88,20 @@ This comprehensive training course covers GitHub Copilot from basics to advanced
 - IDE installed (VS Code, Visual Studio, or JetBrains)
 - Git basics
 
-## Course Structure
 
-Each module follows this structure:
-```
-Module-XX-Name/
-├── README.md                 # Module content and concepts
-├── labs/                     # Hands-on exercises
-│   ├── lab-instructions.md
-│   └── starter-code/
-├── examples/                 # Code examples
-└── reference-materials/      # Additional resources
-```
+## Module Reference Guide
+
+| Module | Focus Area | Key Topics |
+|--------|-----------|-----------|
+| Module 1 | Prompt Engineering | Intent, context, constraints, examples, comment-based and role-based prompting |
+| Module 2 | Advanced Features | Chat usage, refactoring, optimization, documentation, best practices |
+| Module 3 | Cross-Environment | VS Code, Visual Studio, JetBrains, CLI, choosing the right interface |
+| Module 4 | Customization | Prompt templates, organizational policies, configuration |
+| Module 5 | Developer Use Cases | Feature development, refactoring, debugging, documentation |
+| Module 6 | Unit Testing | Test generation, edge cases, coverage, test automation |
+| Module 7 | Multiple Languages | C#, JavaScript, language-agnostic patterns, cross-stack development |
+| Module 8 | Copilot Agents | Agent roles, agent-to-agent workflows, multi-agent collaboration |
+| Module 9 | MCP & Emerging Trends | Model Context Protocol, Figma optimization, future capabilities |
 
 ## Learning Outcomes
 
@@ -111,6 +112,8 @@ By the end of this course, you will be able to:
 - Work with multiple programming languages
 - Apply agent-based workflows
 - Understand emerging AI development trends
+- Leverage advanced features for productivity optimization
+- Implement Copilot in organizational workflows
 
 ## Support and Feedback
 
