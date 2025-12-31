@@ -500,7 +500,7 @@ dotnet build /p:DocumentationFile=bin/Debug/net6.0/Lab2.xml
 
 ## Next Module
 
-When ready, proceed to [Module 3: GitHub Copilot Across Environments](../Module-03-Across-Environments/lab-instructions.md)
+When ready, proceed to [Module 3: GitHub Copilot Across Environments](../../Module-03-Across-Environments/)
 ## Starter Code Setup
 
 If you don't have the `starter-code/` folder, create it with these files:
