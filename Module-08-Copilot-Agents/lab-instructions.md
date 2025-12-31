@@ -992,19 +992,6 @@ Submit the following files in a folder named `Lab8-Agent-Workflow-[YourName]`:
 16. `Tests/PasswordResetServiceTests. cs`
 17. `Docs/password-reset-api.md`
 
----
-
-## Grading Rubric
-
-| Category | Points | Criteria |
-|----------|--------|----------|
-| **Exercise 1** | 15 | Complete implementation, compiles, documented |
-| **Exercise 2** | 15 | Thorough review, issues identified and prioritized |
-| **Exercise 3** | 15 | Issues addressed, refactored code, documented |
-| **Exercise 4** | 20 | 15+ tests, all passing, good coverage |
-| **Exercise 5** | 30 | Complete workflow, all phases documented |
-| **Documentation** | 5 | Clear, complete, well-organized |
-| **Total** | **100** | |
 
 ---
 
