@@ -64,8 +64,6 @@ Implement a feature using all agents:
 - Iteration improves quality
 - Agent workflows mirror real processes
 
-## Step-by-Step Guide
-
 ### Exercise 1: Developer Agent
 1. Open Copilot Chat in your IDE (Visual Studio or VS Code)
 2. Copy the developer prompt into the chat window
